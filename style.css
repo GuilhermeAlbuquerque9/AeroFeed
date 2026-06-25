@@ -495,3 +495,11 @@ transform:translateY(1px);
 content:"🗑️";
 font-size:14px;
 }
+
+.feed-text{
+flex:1;
+overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap;
+cursor:pointer;
+}
