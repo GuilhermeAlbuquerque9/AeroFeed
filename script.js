@@ -48,16 +48,12 @@ function renderFeeds() {
         const div = document.createElement("div");
         div.className = "feed-item";
 
-        /* TEXTO */
         const text = document.createElement("div");
         text.className = "feed-text";
         text.textContent = feed;
 
-        text.onclick = () => {
-            loadFeed(feed);
-        };
+        text.onclick = () => loadFeed(feed);
 
-        /* BOTÃO LIXEIRA */
         const del = document.createElement("button");
         del.className = "feed-delete";
 
