@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RSS Aero</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="window">
+
+    <div class="sidebar">
+
+        <h2>AeroFeed</h2>
+
+        <input
+            type="text"
+            id="rssInput"
+            placeholder="URL do RSS">
+
+        <button id="addFeed">
+            Adicionar Feed
+        </button>
+
+        <div id="feedList"></div>
+
+    </div>
+
+    <div class="content">
+
+        <div class="header">
+            <h1 id="feedTitle">
+                Selecione um feed
+            </h1>
+        </div>
+
+        <div id="newsList"></div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

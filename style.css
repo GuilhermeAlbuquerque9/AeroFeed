@@ -1,0 +1,421 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Segoe UI",sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+
+background:
+url("background.jpg")
+center center
+no-repeat
+fixed;
+
+background-size:cover;
+
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* Escurecimento do wallpaper */
+
+body::before{
+content:"";
+position:fixed;
+inset:0;
+
+background:
+linear-gradient(
+180deg,
+rgba(0,0,0,.15),
+rgba(0,0,0,.35)
+);
+
+pointer-events:none;
+}
+
+/* Janela principal */
+
+.window{
+width:95%;
+height:95%;
+
+display:flex;
+
+background:
+rgba(20,35,55,.35);
+
+backdrop-filter:blur(18px);
+
+border-radius:18px;
+
+border:
+1px solid rgba(255,255,255,.35);
+
+overflow:hidden;
+
+box-shadow:
+0 0 0 1px rgba(255,255,255,.08),
+0 15px 40px rgba(0,0,0,.55),
+inset 0 1px rgba(255,255,255,.45);
+}
+
+/* Sidebar */
+
+.sidebar{
+width:300px;
+padding:20px;
+
+background:
+linear-gradient(
+180deg,
+rgba(70,100,140,.50),
+rgba(25,40,65,.65)
+);
+
+border-right:
+1px solid rgba(255,255,255,.25);
+
+position:relative;
+}
+
+/* brilho aero */
+
+.sidebar::before{
+content:"";
+
+position:absolute;
+top:0;
+left:0;
+right:0;
+
+height:120px;
+
+background:
+linear-gradient(
+180deg,
+rgba(255,255,255,.35),
+transparent
+);
+
+pointer-events:none;
+}
+
+.sidebar h2{
+display:flex;
+align-items:center;
+gap:10px;
+
+font-size:24px;
+font-weight:600;
+
+color:white;
+
+text-shadow:
+0 1px 3px rgba(0,0,0,.5);
+}
+
+.sidebar h2::before{
+content:"";
+
+width:32px;
+height:32px;
+
+background:
+url("RSS.png")
+center center
+no-repeat;
+
+background-size:contain;
+
+flex-shrink:0;
+}
+
+/* Inputs */
+
+.sidebar input{
+width:100%;
+
+margin-top:18px;
+margin-bottom:10px;
+
+padding:10px 12px;
+
+color:#fff;
+
+background:
+rgba(255,255,255,.15);
+
+border:
+1px solid rgba(255,255,255,.25);
+
+border-radius:8px;
+
+outline:none;
+}
+
+.sidebar input::placeholder{
+color:#d8e6ff;
+}
+
+.sidebar input:focus{
+border-color:#7fc7ff;
+
+box-shadow:
+0 0 10px rgba(127,199,255,.4);
+}
+
+/* Botão estilo Vista */
+
+.sidebar button{
+width:100%;
+
+padding:10px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+color:white;
+
+border-radius:8px;
+
+border:
+1px solid #1f4d85;
+
+background:
+linear-gradient(
+180deg,
+#77c9ff 0%,
+#4da7ff 45%,
+#2677d9 55%,
+#1c5eb6 100%
+);
+
+box-shadow:
+inset 0 1px rgba(255,255,255,.7),
+0 2px 6px rgba(0,0,0,.3);
+
+transition:.15s;
+}
+
+.sidebar button:hover{
+filter:brightness(1.08);
+}
+
+.sidebar button:active{
+transform:translateY(1px);
+}
+
+/* Feed list */
+
+#feedList{
+margin-top:20px;
+overflow-y:auto;
+}
+
+.feed-item{
+padding:10px 12px;
+
+margin-bottom:8px;
+
+color:white;
+
+cursor:pointer;
+
+border-radius:8px;
+
+background:
+linear-gradient(
+180deg,
+rgba(255,255,255,.18),
+rgba(255,255,255,.08)
+);
+
+border:
+1px solid rgba(255,255,255,.12);
+
+transition:.15s;
+}
+
+.feed-item:hover{
+background:
+linear-gradient(
+180deg,
+rgba(120,190,255,.45),
+rgba(70,130,220,.35)
+);
+}
+
+.feed-item:active{
+transform:translateY(1px);
+}
+
+/* Área principal */
+
+.content{
+flex:1;
+display:flex;
+flex-direction:column;
+}
+
+/* Header */
+
+.header{
+padding:20px;
+
+background:
+linear-gradient(
+180deg,
+rgba(150,200,255,.35),
+rgba(50,90,150,.15)
+);
+
+border-bottom:
+1px solid rgba(255,255,255,.20);
+
+position:relative;
+}
+
+.header::before{
+content:"";
+
+position:absolute;
+top:0;
+left:0;
+right:0;
+
+height:50px;
+
+background:
+linear-gradient(
+180deg,
+rgba(255,255,255,.45),
+transparent
+);
+
+pointer-events:none;
+}
+
+.header h1{
+color:white;
+
+font-size:28px;
+font-weight:500;
+
+text-shadow:
+0 1px 4px rgba(0,0,0,.6);
+}
+
+/* Notícias */
+
+#newsList{
+flex:1;
+overflow-y:auto;
+padding:20px;
+}
+
+/* Card RSS */
+
+.news-card{
+position:relative;
+
+margin-bottom:16px;
+
+padding:18px;
+
+background:
+linear-gradient(
+180deg,
+rgba(255,255,255,.20),
+rgba(255,255,255,.08)
+);
+
+border:
+1px solid rgba(255,255,255,.18);
+
+border-radius:12px;
+
+backdrop-filter:blur(12px);
+
+box-shadow:
+0 5px 15px rgba(0,0,0,.25);
+}
+
+.news-card::before{
+content:"";
+
+position:absolute;
+top:0;
+left:0;
+right:0;
+
+height:40px;
+
+border-radius:12px 12px 0 0;
+
+background:
+linear-gradient(
+180deg,
+rgba(255,255,255,.30),
+transparent
+);
+}
+
+.news-card a{
+position:relative;
+z-index:1;
+
+text-decoration:none;
+
+font-size:18px;
+font-weight:600;
+
+color:#ffffff;
+
+text-shadow:
+0 1px 3px rgba(0,0,0,.6);
+}
+
+.news-card p{
+position:relative;
+z-index:1;
+
+margin-top:10px;
+
+line-height:1.5;
+
+color:#dfe9ff;
+}
+
+/* Scrollbar Aero */
+
+::-webkit-scrollbar{
+width:12px;
+}
+
+::-webkit-scrollbar-track{
+background:
+rgba(255,255,255,.08);
+}
+
+::-webkit-scrollbar-thumb{
+border-radius:999px;
+
+background:
+linear-gradient(
+180deg,
+#8fd4ff,
+#4ea0ff,
+#2a71d8
+);
+}
+
+::-webkit-scrollbar-thumb:hover{
+filter:brightness(1.1);
+}
