@@ -4,59 +4,101 @@ const feedList = document.getElementById("feedList");
 const newsList = document.getElementById("newsList");
 const feedTitle = document.getElementById("feedTitle");
 
-let feeds = JSON.parse(
-localStorage.getItem("rssFeeds")
-) || [];
+let feeds = JSON.parse(localStorage.getItem("rssFeeds")) || [];
 
 renderFeeds();
+
+/* =========================
+   ADICIONAR FEED
+========================= */
 
 addFeedBtn.onclick = () => {
 
     const url = feedInput.value.trim();
 
-    if(!url) return;
+    if (!url) return;
 
     feeds.push(url);
 
-    localStorage.setItem(
-        "rssFeeds",
-        JSON.stringify(feeds)
-    );
+    saveFeeds();
 
     renderFeeds();
 
     feedInput.value = "";
 };
 
-function renderFeeds(){
+/* =========================
+   SALVAR LOCALSTORAGE
+========================= */
+
+function saveFeeds() {
+    localStorage.setItem("rssFeeds", JSON.stringify(feeds));
+}
+
+/* =========================
+   RENDER FEEDS
+========================= */
+
+function renderFeeds() {
 
     feedList.innerHTML = "";
 
-    feeds.forEach(feed => {
+    feeds.forEach((feed, index) => {
 
         const div = document.createElement("div");
-
         div.className = "feed-item";
 
-        div.textContent = feed;
+        /* TEXTO */
+        const text = document.createElement("div");
+        text.className = "feed-text";
+        text.textContent = feed;
 
-        div.onclick = () => {
+        text.onclick = () => {
             loadFeed(feed);
         };
 
+        /* BOTÃO LIXEIRA */
+        const del = document.createElement("button");
+        del.className = "feed-delete";
+
+        del.onclick = (e) => {
+            e.stopPropagation();
+            removeFeed(index);
+        };
+
+        div.appendChild(text);
+        div.appendChild(del);
+
         feedList.appendChild(div);
-
     });
-
 }
 
-async function loadFeed(url){
+/* =========================
+   REMOVER FEED
+========================= */
+
+function removeFeed(index) {
+
+    feeds.splice(index, 1);
+
+    saveFeeds();
+
+    renderFeeds();
+
+    feedTitle.textContent = "Selecione um feed";
+    newsList.innerHTML = "";
+}
+
+/* =========================
+   CARREGAR RSS
+========================= */
+
+async function loadFeed(url) {
 
     feedTitle.textContent = "Carregando...";
-
     newsList.innerHTML = "";
 
-    try{
+    try {
 
         const response = await fetch(
             "https://api.rss2json.com/v1/api.json?rss_url=" +
@@ -69,19 +111,16 @@ async function loadFeed(url){
 
         data.items.forEach(item => {
 
-            const card =
-            document.createElement("div");
-
+            const card = document.createElement("div");
             card.className = "news-card";
 
             card.innerHTML = `
-                <a href="${item.link}"
-                target="_blank">
-                ${item.title}
+                <a href="${item.link}" target="_blank">
+                    ${item.title}
                 </a>
 
                 <p>
-                ${item.description.slice(0,150)}...
+                    ${item.description.slice(0,150)}...
                 </p>
             `;
 
@@ -89,11 +128,8 @@ async function loadFeed(url){
 
         });
 
-    }catch{
+    } catch {
 
-        feedTitle.textContent =
-        "Erro ao carregar feed";
-
+        feedTitle.textContent = "Erro ao carregar feed";
     }
-
 }
